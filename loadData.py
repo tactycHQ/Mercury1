@@ -5,23 +5,22 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 #GLOBAL VARIABLES
-__DATA__ = "D:\Dropbox\9. Data\Mercury Data\ciq_aapl_values.csv"
+__AAPL__ = "D:\Dropbox\9. Data\Mercury Data\ciq_aapl_values.csv"
+__SPY__ = "D:\Dropbox\9. Data\Mercury Data\ciq_spy_values.csv"
 
 
 def main():
-    df = createDf()
+    df = createDf(__AAPL__)
+    df_benchmark = createDf(__SPY__)
+    print(df.shape)
+    print(df.iloc[0],[0])
 
-def createDf():
+def createDf(ticker):
     print("----Creating Dataframe from CSV----")
-    df = pd.read_csv(__DATA__,low_memory=False)
+    df = pd.read_csv(ticker,low_memory=False)
 
     print("----Date Reformatted----")
     df['DATE'] = pd.to_datetime(df['DATE'])
-    print(df.columns)
-    # df = df.iloc[::-1].reset_index(drop=True)
-
-    # df=addLabels(df,30,0.05)
-    # # print(df.columns)
 
     return df
 
