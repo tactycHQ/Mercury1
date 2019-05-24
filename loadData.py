@@ -12,7 +12,7 @@ __SPY__ = "D:\Dropbox\9. Data\Mercury Data\ciq_spy_values.csv"
 def main():
     df = createDf(__AAPL__)
     df_benchmark = createDf(__SPY__)
-    print(df.shape)
+
     print(df.iloc[0],[0])
 
 def createDf(ticker):
@@ -21,6 +21,8 @@ def createDf(ticker):
 
     print("----Date Reformatted----")
     df['DATE'] = pd.to_datetime(df['DATE'])
+
+    df.describe(include='all').to_csv("Description.csv")
 
     return df
 
