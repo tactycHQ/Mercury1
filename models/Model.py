@@ -1,4 +1,4 @@
-import DataGenerator
+import dataloader
 import numpy as np
 import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
@@ -13,5 +13,5 @@ class Model():
     def createData(self):
 
 
-df_aapl = DataGenerator(__AAPL__)
+df_aapl = dataloader(__AAPL__)
 X_train = df_aapl.X_train

@@ -1,4 +1,5 @@
 #MERCURY 1
+import datasets
 import logging
 import pandas as pd
 import sys
@@ -8,7 +9,7 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(levelname)s-%(message)s',datefmt='%d-%b-%y %H:%M:%S',stream=sys.stdout)
 
 #GLOBAL VARIABLES
-__AAPL__ = "data\ciq_aapl_values.csv"
+__AAPL__ = "datasets/ciq_aapl_values.csv"
 
 selectedFeatures = ['DATE',
 'IQ_LASTSALEPRICE',
@@ -148,7 +149,7 @@ selectedFeatures = ['DATE',
 'IQ_LOW_TARGET_PRICE',
 'IQ_TARGET_PRICE_NUM']
 
-class DataGenerator:
+class DataLoader:
 
     def __init__(self,fname, window=1,threshold=0.05):
 
@@ -223,7 +224,7 @@ class DataGenerator:
         logging.info("Y_train shape is %s", self.Y_train.shape)
         logging.info("Y_test shape is %s", self.Y_test.shape)
 
-df_aapl = DataGenerator(__AAPL__,1,0.05)
+df_aapl = DataLoader(__AAPL__,1,0.05)
 
 
 

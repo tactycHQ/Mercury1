@@ -2,3 +2,5 @@
 data/
 logs/
 !/data/Inputs.csv
+/data/Unscaled Feature Description.csv
+/datasets/ciq_aapl_values.csv
