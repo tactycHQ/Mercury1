@@ -5,7 +5,7 @@ import sys
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(levelname)s-%(message)s',datefmt='%d-%b-%y %H:%M:%S',stream=sys.stdout)
 
 #GLOBAL VARIABLES
-__AAPL__ = "D:\Dropbox\9. Data\Mercury Data\ciq_aapl_values.csv"
+__AAPL__ = "data\ciq_aapl_values.csv"
 
 selectedFeatures = ['DATE',
 'IQ_LASTSALEPRICE',
@@ -159,7 +159,7 @@ class DataGenerator:
         logging.info("Date Reformatted")
 
         df = df[selectedFeatures]
-        df.describe(include='all').to_csv("Unscaled Feature Description.csv")
+        df.describe(include='all').to_csv("data\\Unscaled Feature Description.csv")
         logging.info("Unscaled Features Description Saved Under Feature Description.csv")
 
         self.features = df.loc[:,df.columns!='DATE'].values
