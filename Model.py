@@ -11,3 +11,7 @@ class Model():
 
 
     def createData(self):
+
+
+df_aapl = DataGenerator(__AAPL__)
+X_train = df_aapl.X_train
