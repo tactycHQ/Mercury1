@@ -1,5 +1,4 @@
 #MERCURY 1
-import datasets
 import logging
 import pandas as pd
 import sys
@@ -9,7 +8,7 @@ from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(levelname)s-%(message)s',datefmt='%d-%b-%y %H:%M:%S',stream=sys.stdout)
 
 #GLOBAL VARIABLES
-__AAPL__ = "datasets/ciq_aapl_values.csv"
+__AAPL__ = "C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\datasets\\ciq_aapl_values.csv"
 
 selectedFeatures = ['DATE',
 'IQ_LASTSALEPRICE',
@@ -172,7 +171,7 @@ class DataLoader:
         logging.info("Date Reformatted")
 
         df = df[selectedFeatures]
-        df.describe(include='all').to_csv("data\\Unscaled Feature Description.csv")
+        df.describe(include='all').to_csv("Unscaled Feature Description.csv")
         logging.info("Unscaled Features Description Saved Under Feature Description.csv")
         return df
 
