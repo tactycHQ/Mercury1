@@ -1,5 +1,8 @@
 #MERCURY 1
+import logging
 import pandas as pd
+import sys
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(levelname)s-%(message)s',datefmt='%d-%b-%y %H:%M:%S',stream=sys.stdout)
 
 #GLOBAL VARIABLES
 __AAPL__ = "D:\Dropbox\9. Data\Mercury Data\ciq_aapl_values.csv"
@@ -149,33 +152,33 @@ class DataGenerator:
 
 
     def createDf(self,fname):
-        print("----Creating Dataframe from CSV----")
+        logging.info("Creating Dataframe from CSV")
         df = pd.read_csv(fname,low_memory=False)
-        print("----Date Reformatted----")
 
         df['DATE'] = pd.to_datetime(df['DATE'])
-        print("----Date Reformatted----")
+        logging.info("Date Reformatted")
 
         df = df[selectedFeatures]
         df.describe(include='all').to_csv("Unscaled Feature Description.csv")
-        print("----Unscaled Features Description Saved Under Feature Description.csv----")
+        logging.info("Unscaled Features Description Saved Under Feature Description.csv")
 
         self.features = df.loc[:,df.columns!='DATE'].values
         self.dates=df.loc[:,'DATE'].values.reshape(-1,1)
         self.prices = df.loc[:, 'IQ_LASTSALEPRICE'].values.reshape(-1,1)
 
-        self.features.normalize()
-        self.prices.createTargets()
+        # self.features.normalize()
+        # self.prices.createTargets()
 
     def normalize(self):
-        return None
+        return self
 
     def createTargets(self):
         return None
 
 
 df_aapl = DataGenerator(__AAPL__)
-print(df_aapl.features.shape)
+logging.info("Features shape is %s",df_aapl.features.shape)
+
 
 
 
