@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras import layers
+from keras import layers, Sequential, optimizers
 
 class M1Model:
 
@@ -7,17 +7,21 @@ class M1Model:
         self.model=None
 
     def build_model(self):
-        self.model = tf.keras.Sequential()
+        # print(tf.VERSION)
+        print(tf.keras.__version__)
 
-        self.model.add(layers.Dense(64, activation='relu'))
-        self.model.add(layers.Dense(64, activation='relu'))
-        self.model.add(layers.Dense(10, activation='softmax'))
+        self.model = Sequential()
 
-        self.model.compile(optimizer=tf.keras.optimizers.Adam(0.001),
-                      loss='categorical_crossentropy',
+        self.model.add(layers.Dense(64, activation='relu',input_shape=(137,)))
+        self.model.add(layers.Dense(64, activation='relu'))
+        self.model.add(layers.Dense(3, activation='softmax'))
+
+
+        self.model.compile(optimizer=optimizers.Adam(0.001),
+                      loss='sparse_categorical_crossentropy',
                       metrics=['accuracy'])
 
-        return model
+        return self.model
 
     def save(self,checkpoint_path):
         print("Saving model...")
