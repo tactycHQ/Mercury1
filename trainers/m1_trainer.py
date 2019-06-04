@@ -1,3 +1,5 @@
+#MERCURY
+import logging
 from keras.callbacks import ModelCheckpoint, TensorBoard
 
 class M1ModelTrainer:
@@ -14,10 +16,11 @@ class M1ModelTrainer:
         self.val_acc=[]
 
     def train(self):
+        logging.info("Beginning Model Fit")
         history = self.model.fit(
         self.X_train,
         self.Y_train,
         epochs=self.epochs,
         batch_size=self.batch_size,
-        steps_per_epoch=None
         )
+        logging.info("Model fit success")

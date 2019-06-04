@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import sys
 import numpy as np
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(levelname)s-%(message)s',datefmt='%d-%b-%y %H:%M:%S',stream=sys.stdout)
 
@@ -53,11 +53,13 @@ class DataLoader:
                     targets.append(-1)
             else:
                 targets.append(0)
-        self.targets = np.array(targets)
+        self.targets = np.array(targets).reshape(-1,1)
+        unique, counts = np.unique(self.targets, return_counts=True)
+        logging.info("Target counts are %s %s", unique, counts)
 
-        logging.info("Targets created of shape %s", self.targets.shape)
-        unique, counts = np.unique(self.targets,return_counts=True)
-        logging.info("Target counts are %s %s",unique,counts)
+        ohe = OneHotEncoder(categories='auto')
+        self.targets = ohe.fit_transform(self.targets).toarray()
+        logging.info("Targets are one hot encoded and transformed to shape %s", self.targets.shape)
 
 
     def createPctReturns(self,close):
@@ -69,8 +71,8 @@ class DataLoader:
 
     def splitData(self):
         self.X_train, self.X_test, Y_train,Y_test = train_test_split(self.inputs,self.targets,test_size=0.2,random_state=1,stratify=None)
-        self.Y_train=np.reshape(Y_train,(-1, 1))
-        self.Y_test=np.reshape(Y_test,(-1, 1))
+        self.Y_train=np.reshape(Y_train,(-1, Y_train.shape[1]))
+        self.Y_test=np.reshape(Y_test,(-1, Y_test.shape[1]))
         logging.info("Train and test sets have been split")
 
 

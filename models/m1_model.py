@@ -1,35 +1,36 @@
+import logging
 import tensorflow as tf
-from keras import layers, Sequential, optimizers
+from keras import layers, Sequential, optimizers, models
 
 class M1Model:
 
-    def __init__(self):
+    def __init__(self,features):
         self.model=None
+        self.features=features
+        tf.logging.set_verbosity(tf.logging.ERROR)
 
     def build_model(self):
-        # print(tf.VERSION)
-        print(tf.keras.__version__)
-
+        logging.info('Building model...')
         self.model = Sequential()
 
-        self.model.add(layers.Dense(64, activation='relu',input_shape=(137,)))
-        self.model.add(layers.Dense(64, activation='relu'))
+        self.model.add(layers.Dense(128, activation='relu',input_shape=(self.features,)))
+        self.model.add(layers.Dense(128, activation='relu'))
         self.model.add(layers.Dense(3, activation='softmax'))
 
-
+        logging.info('Compiling model...')
         self.model.compile(optimizer=optimizers.Adam(0.001),
-                      loss='sparse_categorical_crossentropy',
+                      loss='categorical_crossentropy',
                       metrics=['accuracy'])
-
+        print(self.model.summary())
         return self.model
 
     def save(self,checkpoint_path):
-        print("Saving model...")
-        # self.save_weights(checkpoint_path)
-        print("Model saved")
+        logging.info("Saving model...")
+        self.model.save(checkpoint_path)
+        logging.info("Model saved")
 
     def load(self,checkpoint_path):
-        print("Loading model checkpoint {} ...\n".format(checkpoint_path))
-        # self.load_weights(checkpoint_path)
-        print("Model loaded")
+        logging.info("Loading model checkpoint {} ...\n".format(checkpoint_path))
+        self.model= models.load_model(checkpoint_path)
+        logging.info('Model loaded')
 
