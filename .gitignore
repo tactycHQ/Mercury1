@@ -1,7 +1,2 @@
-.idea/
-data/
-logs/
-!/logs/Inputs.csv
-/logs/Unscaled Feature Description.csv
-/datasets/ciq_aapl_values.csv
-/dataloader/Unscaled Feature Description.csv
+
+/outputs/
