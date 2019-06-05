@@ -1,4 +1,4 @@
-#MERCURY
+#MERCURY 1
 import logging
 from keras.callbacks import ModelCheckpoint, TensorBoard
 

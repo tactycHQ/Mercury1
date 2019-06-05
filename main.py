@@ -11,7 +11,7 @@ __AAPL__ = "D:\\Dropbox\\9. Data\\Mercury Data\\CSV\\CIQ_AAPL.csv"
 def main(load=0):
 
     logging.info('Loading data...')
-    data = DataLoader(__AAPL__, window=10, threshold=0.03)
+    data = DataLoader(__AAPL__, window=10, threshold=0.03,drop=1)
     X_train = data.X_train_std
     Y_train = data.Y_train
     features=X_train.shape[1]
@@ -19,20 +19,26 @@ def main(load=0):
 
     m1_model = M1Model(features)
 
-    if load == 0:
-        m1_model.load("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\test.h5")
+    if load == 1:
+        #load model from h5 file
+        m1_model.load("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\Mercury 1.h5")
     else:
+        #build model
         print('Create the model.')
         m1_model.build_model()
+
+        #train model
         print('Create the trainer')
         trainer = M1ModelTrainer(m1_model.model,X_train,Y_train,epochs=20,batch_size=32)
         print('Start training the model.')
         trainer.train()
-        m1_model.save("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\m1_output.h5")
+
+        #save model
+        m1_model.save("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\Mercury 1.h5")
 
 
 if __name__ == '__main__':
 
-    main(load=1)
+    main(load=0)
     logging.info('Successful execution')
 

@@ -4,6 +4,8 @@ import numpy as np
 from feature_selector import  FeatureSelector
 from data_loader.m1_data_loader import DataLoader
 import matplotlib.pyplot as plt
+mpl_logger = logging.getLogger('matplotlib')
+mpl_logger.setLevel(logging.WARNING)
 
 def main():
 
@@ -33,26 +35,11 @@ def main():
     summary = pd.DataFrame.from_dict(fs.ops,orient='index')
     summary.to_csv("csv//summary.csv")
 
-
-
 if __name__ == '__main__':
 
-    mpl_logger = logging.getLogger('matplotlib')
-    mpl_logger.setLevel(logging.WARNING)
-
     __AAPL__ = "D:\\Dropbox\\9. Data\\Mercury Data\\CSV\\CIQ_AAPL.csv"
-    data = DataLoader(__AAPL__, window=10, threshold=0.03)
-    prices = data.prices
-    bmark = data.bmark
-    dates = data.dates
-    targets = data.targets
-    train_dates =  dates[:-data.window]
-    relReturns = data.relReturns[:-data.window]
-    features = data.features
-    X_train = data.X_train_std
-    Y_train = data.Y_train
-
-    fs = FeatureSelector(data = data.df, labels=targets)
+    data = DataLoader(__AAPL__, window=10, threshold=0.03,drop=1)
+    fs = FeatureSelector(data = data.df, labels=data.targets)
 
     main()
 
