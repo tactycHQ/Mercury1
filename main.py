@@ -5,13 +5,11 @@ from trainers.m1_trainer import M1ModelTrainer
 
 
 #GLOBAL VARIABLES
-__AAPL__ = "D:\\Dropbox\\9. Data\\Mercury Data\\CSV\\CIQ_AAPL.csv"
+__AAPL__ = "D:\\Dropbox\\9. Data\\Mercury Data\\CSV\\CIQ_AAPL_optimized.csv"
 
 
 def main(load=0):
 
-    logging.info('Loading data...')
-    data = DataLoader(__AAPL__, window=10, threshold=0.03,drop=1)
     X_train = data.X_train_std
     Y_train = data.Y_train
     features=X_train.shape[1]
@@ -38,6 +36,13 @@ def main(load=0):
 
 
 if __name__ == '__main__':
+
+    data = DataLoader(__AAPL__,
+                      window=10,
+                      threshold=0.03,
+                      technicals=0,
+                      featselect=0,
+                      drop=0)
 
     main(load=0)
     logging.info('Successful execution')
