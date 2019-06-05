@@ -11,6 +11,84 @@ class DataLoader:
 
     def __init__(self,fname, window=1,threshold=0.05):
 
+        self.drop_features = [
+            'DATE',
+            'IQ_LASTSALEPRICE',
+            'BENCHMARK',
+            'IQ_LOWPRICE',
+            'IQ_OPENPRICE',
+            'IQ_CLOSEPRICE',
+            'IQ_CLOSEPRICE_ADJ',
+            'IQ_VWAP',
+            'IQ_EQUITY_BIDPRICE',
+            'IQ_EQUITY_ASKPRICE',
+            'IQ_EQUITY_MIDPRICE',
+            'IQ_YEARLOW',
+            'IQ_MARKETCAP',
+            'IQ_CLASS_MARKETCAP',
+            'IQ_TEV',
+            'IQ_CLASS_SHARESOUTSTANDING',
+            'IQ_SHORT_INTEREST_PERCENT',
+            'IQ_VOL_LAST_MTH',
+            'IQ_VOL_LAST_3MTH',
+            'IQ_VOL_LAST_6MTH',
+            'IQ_VOL_LAST_YR',
+            'IQ_VALUE_TRADED_LAST_WK',
+            'IQ_VALUE_TRADED_LAST_MTH',
+            'IQ_VALUE_TRADED_LAST_3MTH',
+            'IQ_VALUE_TRADED_LAST_6MTH',
+            'IQ_VALUE_TRADED_LAST_YR',
+            'IQ_RSI_ADJ',
+            'IQ_RETURN_COMMON_EQUITY',
+            'IQ_EBIT_MARGIN',
+            'IQ_NI_NORM_MARGIN',
+            'IQ_QUICK_RATIO',
+            'IQ_EBIT_1YR_ANN_GROWTH',
+            'IQ_NI_NORM_1YR_ANN_GROWTH',
+            'IQ_TBV_1YR_ANN_GROWTH',
+            'IQ_EBIT_2YR_ANN_CAGR',
+            'IQ_NI_NORM_2YR_ANN_CAGR',
+            'IQ_TBV_2YR_ANN_CAGR',
+            'IQ_EBIT_3YR_ANN_CAGR',
+            'IQ_NI_NORM_3YR_ANN_CAGR',
+            'IQ_TBV_3YR_ANN_CAGR',
+            'IQ_TOTAL_ASSETS_3YR_ANN_CAGR',
+            'IQ_GP_5YR_ANN_CAGR',
+            'IQ_COMMON_EQUITY_5YR_ANN_CAGR',
+            'IQ_TBV_5YR_ANN_CAGR',
+            'IQ_TOTAL_ASSETS_5YR_ANN_CAGR',
+            'IQ_GP_7YR_ANN_CAGR',
+            'IQ_TBV_7YR_ANN_CAGR',
+            'IQ_GP_10YR_ANN_CAGR',
+            'IQ_TBV_10YR_ANN_CAGR',
+            'IQ_TEV_EBIT_EXER',
+            'IQ_PE_NORMALIZED',
+            'IQ_PTBV',
+            'IQ_MKTCAP_TOTAL_REV',
+            'IQ_MKTCAP_TOTAL_REV_EXER',
+            'IQ_MKTCAP_EBT_EXCL',
+            'IQ_MKTCAP_EBT_EXCL_OUT',
+            'IQ_MKTCAP_EBT_EXCL_EXER',
+            'IQ_PRICE_TARGET',
+            'IQ_MEDIAN_TARGET_PRICE',
+            'IQ_HIGH_TARGET_PRICE',
+            'IQ_VOL_LAST_WK',
+            'IQ_DPS_10YR_ANN_CAGR',
+            'IQ_EBITA_2YR_ANN_CAGR',
+            'IQ_EBITA_MARGIN',
+            'IQ_COMMON_EQUITY_3YR_ANN_CAGR',
+            'IQ_EBITDA_MARGIN',
+            'IQ_DPS_1YR_ANN_GROWTH',
+            'IQ_TOTAL_ASSETS_7YR_ANN_CAGR',
+            'IQ_NI_NORM_5YR_ANN_CAGR',
+            'IQ_GP_3YR_ANN_CAGR',
+            'IQ_TOTAL_REV_7YR_ANN_CAGR',
+            'IQ_COMMON_EQUITY_7YR_ANN_CAGR',
+            'IQ_DPS_3YR_ANN_CAGR',
+            'IQ_DIV_AMOUNT',
+            'IQ_DPS_5YR_ANN_CAGR',
+            'IQ_ANNUALIZED_DIVIDEND'
+        ]
         self.dates = None
         self.features=None
         self.targets=None
@@ -39,7 +117,7 @@ class DataLoader:
         return df
 
     def createInputs(self,dframe):
-        dframe = dframe.drop(['DATE','IQ_LASTSALEPRICE','BENCHMARK'],axis=1)
+        dframe = dframe.drop(self.drop_features,axis=1)
         self.df=dframe
         self.features=self.df.columns
         self.inputs = self.df.values
@@ -66,7 +144,7 @@ class DataLoader:
 
         ohe = OneHotEncoder(categories='auto')
         self.targets_train = ohe.fit_transform(self.targets).toarray()
-        self.targets_train = self.targets[:-self.window]
+        self.targets_train = self.targets_train[:-self.window]
         logging.info("Targets are one hot encoded and transformed to shape %s", self.targets_train.shape)
 
 

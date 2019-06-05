@@ -19,7 +19,7 @@ def main(load=0):
 
     m1_model = M1Model(features)
 
-    if load == 1:
+    if load == 0:
         m1_model.load("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\test.h5")
     else:
         print('Create the model.')
