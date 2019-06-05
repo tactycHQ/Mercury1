@@ -28,7 +28,7 @@ def main(load=0):
         trainer = M1ModelTrainer(m1_model.model,X_train,Y_train,epochs=20,batch_size=32)
         print('Start training the model.')
         trainer.train()
-        m1_model.save("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\test.h5")
+        m1_model.save("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\saved_models\\m1_output.h5")
 
 
 if __name__ == '__main__':

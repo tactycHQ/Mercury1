@@ -11,12 +11,14 @@ class DataLoader:
 
     def __init__(self,fname, window=1,threshold=0.05):
 
+        self.dates = None
+        self.features=None
         df = self.createDf(fname)
         self.window=window
         self.threshold=threshold
-        self.dates=None
         self.prices = df['IQ_LASTSALEPRICE'].values.reshape(-1, 1)
         self.bmark = df['BENCHMARK'].values.reshape(-1, 1)
+        self.relReturns=None
         self.createInputs(df)
         self.createTargets()
         self.splitData()
@@ -27,15 +29,17 @@ class DataLoader:
         logging.info("Creating Dataframe from CSV")
 
         df['DATE'] = pd.to_datetime(df['DATE'])
-        self.dates = df.loc[:, 'DATE'].values.reshape(-1, 1)
+        self.dates = df.loc[:,'DATE'].values.reshape(-1, 1)
         logging.info("Date Reformatted")
 
-        df.describe(include='all').to_csv("outputs\\Unscaled Feature Description.csv")
+        df.describe(include='all').to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\outputs\\Unscaled Feature Description")
         logging.info("Unscaled Features Description Saved Under Feature Description.csv")
         return df
 
     def createInputs(self,df):
-        self.inputs = df.loc[:, df.columns != 'DATE'].values
+        df = df.drop(['DATE','IQ_LASTSALEPRICE','BENCHMARK'],axis=1)
+        self.features=df.columns
+        self.inputs = df.values
         self.inputs = self.inputs[:-self.window]
         logging.info("Inputs created of shape %s",self.inputs.shape)
 
@@ -43,13 +47,13 @@ class DataLoader:
     def createTargets(self):
         pctReturns = self.createPctReturns(self.prices)
         bMarkReturns = self.createPctReturns(self.bmark)
-        relReturns = pctReturns - bMarkReturns
+        self.relReturns = pctReturns - bMarkReturns
 
         targets = []
-        for i in range (0,len(relReturns)-self.window):
-            if relReturns[i]>self.threshold:
+        for i in range (0,len(self.relReturns)-self.window):
+            if self.relReturns[i]>self.threshold:
                 targets.append(1)
-            elif relReturns[i] < -self.threshold:
+            elif self.relReturns[i] < -self.threshold:
                     targets.append(-1)
             else:
                 targets.append(0)
