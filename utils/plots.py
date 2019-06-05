@@ -41,7 +41,7 @@ def FeatureImportance():
 
     fig, ax = plt.subplots(figsize=(30,10))
     ax.bar(features,impt_factor)
-    ax.set_title("Feture Importance")
+    ax.set_title("Feature Importance")
     ax.set_ylabel("Importance Value")
     ax.set_xlabel("Feature")
     plt.xticks(rotation=90)
