@@ -33,24 +33,23 @@ def main(data,load=0):
 
     dense_model = DenseModel(num_features)
 
+    # load model from h5 file
     if load == 1:
-        #load model from h5 file
         dense_model.load(".\saved_models\\Mercury 1.h5")
         results = dense_model.model.evaluate(X_test,Y_test,batch_size=32)
         print('test loss, test acc:',results)
 
+    # build and train and save model
     else:
-        #build model
         print('Create the model.')
         dense_model.build_model()
 
-        #train model
         print('Create the trainer')
         trainer = Trainer(dense_model.model,X_train,Y_train,epochs=100,batch_size=32)
+
         print('Start training the model.')
         trainer.train()
 
-        #save model
         dense_model.save(".\saved_models\\Mercury 1.h5")
 
 
