@@ -18,7 +18,7 @@ class M1Model:
         logging.info('Building model...')
         self.model = Sequential()
 
-        self.model.add(layers.Dense(128, activation='relu',input_shape=(self.features,)))
+        self.model.add(layers.Dense(256, activation='relu',input_shape=(self.features,)))
         self.model.add(layers.Dense(128, activation='relu'))
         self.model.add(layers.Dense(3, activation='softmax'))
 

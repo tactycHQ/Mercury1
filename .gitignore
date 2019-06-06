@@ -8,6 +8,6 @@ data_loader/__pycache__/m1_data_loader.cpython-37.pyc
 logs/
 models/__pycache__/
 saved_models/
-trainers/__pycache__/
+trainer/__pycache__/
 utils/impt
 utils/csv/impt.csv
