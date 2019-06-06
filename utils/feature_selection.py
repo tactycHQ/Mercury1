@@ -2,7 +2,7 @@ import logging
 import pandas as pd
 import numpy as np
 from feature_selector import  FeatureSelector
-from data_loader.m1_data_loader import DataLoader
+from data_loader.data_loader import DataLoader
 import matplotlib.pyplot as plt
 mpl_logger = logging.getLogger('matplotlib')
 mpl_logger.setLevel(logging.WARNING)

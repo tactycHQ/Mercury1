@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG,format='%(asctime)s-%(process)d-%(leveln
 
 class DataLoader:
 
-    def __init__(self,fname, window=1,threshold=0.05,technicals=1,featselect=1,drop=1):
+    def __init__(self,fname, window=1,threshold=0.05,technicals=0,featselect=0,drop=0):
 
         logging.info("Loading Data")
 

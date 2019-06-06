@@ -1,7 +1,7 @@
 import numpy as np
 import logging
 import matplotlib.pyplot as plt
-from data_loader.m1_data_loader import DataLoader
+from data_loader.data_loader import DataLoader
 import seaborn as sns
 from sklearn.ensemble import ExtraTreesClassifier
 

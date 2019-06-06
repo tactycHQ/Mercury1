@@ -1,8 +1,8 @@
 import os
 import logging
 import numpy as np
-from data_loader.m1_data_loader import DataLoader
-from models.m1_model import M1Model
+from data_loader.data_loader import DataLoader
+from models.dense_model import DenseModel
 from trainer.trainer import Trainer
 
 
@@ -37,27 +37,27 @@ def main(load=0):
     logging.info('Size of X_Train: %s', Y_train.shape)
     logging.info('Data loaded succesfully')
 
-    mercury_model = M1Model(num_features)
+    dense_model = DenseModel(num_features)
 
     if load == 1:
         #load model from h5 file
-        mercury_model.load(".\saved_models\\Mercury 1.h5")
-        results = mercury_model.model.evaluate(X_test,Y_test,batch_size=32)
+        dense_model.load(".\saved_models\\Mercury 1.h5")
+        results = dense_model.model.evaluate(X_test,Y_test,batch_size=32)
         print('test loss, test acc:',results)
 
     else:
         #build model
         print('Create the model.')
-        mercury_model.build_model()
+        dense_model.build_model()
 
         #train model
         print('Create the trainer')
-        trainer = Trainer(mercury_model.model,X_train,Y_train,epochs=10,batch_size=32)
+        trainer = Trainer(dense_model.model,X_train,Y_train,epochs=20,batch_size=32)
         print('Start training the model.')
         trainer.train()
 
         #save model
-        mercury_model.save(".\saved_models\\Mercury 1.h5")
+        dense_model.save(".\saved_models\\Mercury 1.h5")
 
 
 if __name__ == '__main__':
@@ -84,5 +84,5 @@ if __name__ == '__main__':
 
     main(load=0)
     logging.info('Successful execution')
-    os.system("tensorboard --logdir=.\\logs\\")
+    # os.system("tensorboard --logdir=.\\logs\\")
 

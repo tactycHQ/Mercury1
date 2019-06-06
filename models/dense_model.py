@@ -3,7 +3,7 @@ import logging
 import tensorflow as tf
 from keras import layers, Sequential, optimizers, models
 
-class M1Model:
+class DenseModel:
 
     def __init__(self,features):
         self.model=None

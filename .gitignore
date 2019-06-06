@@ -11,3 +11,5 @@ saved_models/
 trainer/__pycache__/
 utils/impt
 utils/csv/impt.csv
+data_loader/__pycache__/__init__.cpython-35.pyc
+utils/csv/
