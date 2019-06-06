@@ -18,14 +18,14 @@ class Trainer:
 
     def init_callbacks(self):
         self.callbacks.append(
-            CSVLogger('C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\logs\\training_log.csv',
+            CSVLogger('.\\logs\\training_log.csv',
                       separator=',',
                       append=False)
         )
 
         self.callbacks.append(
             TensorBoard(
-                log_dir='C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\logs\\',
+                log_dir='.\\logs\\',
                 write_graph=True,
             )
         )

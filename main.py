@@ -41,7 +41,7 @@ def main(load=0):
 
     if load == 1:
         #load model from h5 file
-        mercury_model.load("saved_models\\Mercury 1.h5")
+        mercury_model.load(".\saved_models\\Mercury 1.h5")
         results = mercury_model.model.evaluate(X_test,Y_test,batch_size=32)
         print('test loss, test acc:',results)
 
@@ -57,7 +57,7 @@ def main(load=0):
         trainer.train()
 
         #save model
-        mercury_model.save("saved_models\\Mercury 1.h5")
+        mercury_model.save(".\saved_models\\Mercury 1.h5")
 
 
 if __name__ == '__main__':
@@ -84,5 +84,5 @@ if __name__ == '__main__':
 
     main(load=0)
     logging.info('Successful execution')
-    os.system("tensorboard --logdir=C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\logs\\")
+    os.system("tensorboard --logdir=.\\logs\\")
 

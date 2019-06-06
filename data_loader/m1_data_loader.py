@@ -60,11 +60,11 @@ class DataLoader:
         #add technical features
         if self.technicals==1:
             df = add_all_ta_features(df, "IQ_OPENPRICE", "IQ_HIGHPRICE", "IQ_LOWPRICE", "IQ_CLOSEPRICE", "IQ_VOLUME",fillna=False)
-            df.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\DF with TA.csv")
+            df.to_csv(".\\utils\\csv\\DF with TA.csv")
         else: pass
 
         #save summary of all features to csv
-        df.describe(include='all').to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\all_eatures.csv")
+        df.describe(include='all').to_csv(".\\utils\\csv\\all_features.csv")
         logging.info("All Features List Saved Under all_features.csv")
 
         # run and remove unimportant features
@@ -73,7 +73,7 @@ class DataLoader:
         else: pass
 
         # save summary of final features to csv
-        df.describe(include='all').to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\final_features.csv")
+        df.describe(include='all').to_csv(".\\utils\\csv\\final_features.csv")
         logging.info("All Features List Saved Under final_features.csv")
 
         return df
@@ -135,26 +135,26 @@ class DataLoader:
 
         # Identify Collinearity
         fs.identify_collinear(correlation_threshold=0.98)
-        fs.record_collinear.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\record_collinear.csv")
+        fs.record_collinear.to_csv(".\\utils\\csv\\record_collinear.csv")
 
         # Identify Single Unique
         fs.identify_single_unique()
-        fs.record_single_unique.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\record_single_unique.csv")
+        fs.record_single_unique.to_csv(".\\utils\\csv\\record_single_unique.csv")
 
         # Zero importance
         fs.identify_zero_importance(task='classification',
                                     eval_metric='multi_logloss',
                                     n_iterations=10,
                                     early_stopping=True)
-        fs.record_zero_importance.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\record_zero_importance.csv")
+        fs.record_zero_importance.to_csv(".\\utils\\csv\\record_zero_importance.csv")
 
         # Low Importance
         fs.identify_low_importance(cumulative_importance=0.99)
-        fs.feature_importances.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\feature_importance.csv")
+        fs.feature_importances.to_csv(".\\utils\\csv\\feature_importance.csv")
 
         #generate summary of all operations
         summary = pd.DataFrame.from_dict(fs.ops, orient='index')
-        summary.to_csv("C:\\Users\\anubhav\\Desktop\\Projects\\Mercury1\\utils\\csv\\summary.csv")
+        summary.to_csv(".\\utils\\csv\\summary.csv")
 
         #if drop flag is 1, go ahead and remove the suggested features
         if self.drop==1:
